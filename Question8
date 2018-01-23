@@ -1,0 +1,17 @@
+UNF lab(Personnel_number,Name,Date_of_birth,Lab_code,Lab_name,Research_code,Research_description,Research_supervisor)
+
+=> Splits repeating groups af
+=> id teovoegen want name is niet uniek
+
+1NF lab(Personnel_number,id,Name,Date_of_birth,Lab_code,Lab_name)			pr key = Personnel_number
+    Research(Personnel_number,Research_code,Research_description,Research_supervisor)	pr key = Research_code		forgein key = Personnel_number
+
+=> Elk niet-sleutel attribuut is afhankelijk van de volledige primaire sleutel kandidaat
+
+2NF lab(Personnel_number,id,Name,Date_of_birth,Lab_code)				pr key = Personnel_number	foreign key = Lab_code
+    lab(Lab_code,Lab_name)								pr key = Lab_code
+    Research(Personnel_number,Research_code,Research_description,Research_supervisor)	pr key = Research_code		forgein key = Personnel_number
+
+==> Elke niet-sleutel attribuut is niet afhankelijk van een andere niet-sleutel attribuut
+
+3NF 2NF
