@@ -1,0 +1,45 @@
+1) select gene_name, concat(seq_region_end - seq_region_start + 1) as length from gene order by (seq_region_end - seq_region_start + 1) limit 1;
++-----------+--------+
+| gene_name | length |
++-----------+--------+
+| TRDD1     | 8      |
++-----------+--------+
+2) select gene_name, count(transcript_id) from transcript join gene on transcript.gene_id = gene.gene_id group by transcript.gene_id order by count(transcript_id) desc limit 1;
++-----------+----------------------+
+| gene_name | count(transcript_id) |
++-----------+----------------------+
+| NDRG2     |                   80 |
++-----------+----------------------+
+3)select chromosome, count(gene_id) from gene where description like "%cancer%" group by chromosome order by count(gene_id) desc limit 1,1 ;
++------------+----------------+
+| chromosome | count(gene_id) |
++------------+----------------+
+| 9          |              5 |
++------------+----------------+
+select chromosome, count(exon_id) from gene join transcript on gene.gene_id = transcript.gene_id join exon_transcript on transcript.transcript_id = exon_transcript.transcript_id where chromosome = "9" group by chromosome;
++------------+----------------+
+| chromosome | count(exon_id) |
++------------+----------------+
+| 9          |          45679 |
++------------+----------------+
+4) select count(*) from exon;
++----------+
+| count(*) |
++----------+
+|   642590 |
++----------+
+1 row in set (0.12 sec)
+
+mysql> select count(*) from exon_transcript;
++----------+
+| count(*) |
++----------+
+|  1178393 |
++----------+
+1 row in set (0.21 sec)
+
+difference in rows: Een exon kan meerdere transcripts hebben
+
+
+
+
